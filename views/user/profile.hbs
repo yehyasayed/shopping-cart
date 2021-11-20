@@ -1,0 +1,163 @@
+<section class="profile">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <img src="{{image}}" id="image">
+                <form action="/users/changeProfileImage/?_csrf={{token}}" method="post" enctype="multipart/form-data">
+                    <input type="file" id="imagefile" name="profileImage">
+                    <div class="d-none text-center" id="imageUpdate">
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <a href="/users/profile" class="btn btn-danger">Cancel</a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8 col-12">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                            aria-controls="home" aria-selected="true">Profile</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                            aria-controls="profile" aria-selected="false">Orders</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="information" id="info">
+                            <ul>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-4">Email :</div>
+                                        <div class="col-8">{{user.email}}</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-4">Name :</div>
+                                        <div class="col-8">{{user.name}}</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-4">Address :</div>
+                                        <div class="col-8">{{user.address}}</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-4">Phone :</div>
+                                        <div class="col-8">{{user.phone}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button id="swap" class="btn btn-primary p-2 mt-3" style="font-size: 20px;">Update
+                                Information</button>
+                        </div>
+                        <div class="update mb-5 d-none" id="updateForm">
+                            <div class="m-auto text-center">
+                                <ul class="errors">
+                                    {{#each massages as |massage|}}
+                                    <div class="alert alert-danger" role="alert">{{massage}}</div>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                            <form method="POST" action="/users/update">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="text" class="form-control" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Address</label>
+                                    <input type="text" class="form-control" name="address">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Phone</label>
+                                    <input type="text" class="form-control" name="phone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Old Password</label>
+                                    <input type="password" class="form-control" name="oldPassword">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" name="password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Confirm Password</label>
+                                    <input type="password" class="form-control" name="confirm">
+                                </div>
+                                <input type="hidden" name="_csrf" value="{{token}}">
+                                <input type="hidden" id="true_false" value="{{tf}}">
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <a href="/users/profile" class="btn btn-danger">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="order text-center">
+                            {{#each orders as |order i|}}
+                            <table class="table table-bordered mt-5">
+                                <thead>
+                                    <tr class="table-info">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Product Quantity</th>
+                                        <th scope="col">Product Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each order.cart.selectedProducts as |product proIndex|}}
+                                    <tr>
+                                        <th scope="row">{{index @proIndex}}</th>
+                                        <td>{{product.productName}}</td>
+                                        <td>{{product.productQuantity}}</td>
+                                        <td>{{product.productPrice}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                                <footer>
+                                    <tr class="table-success">
+                                        <td colspan="3">Order {{index @i}} Price</td>
+                                        <td>{{order.cart.totalPrice}}</td>
+                                    </tr>
+                                </footer>
+                            </table>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var imageFile = document.getElementById('imagefile');
+    var reader = new FileReader();
+    var userImage = document.getElementById('image');
+    imageFile.onchange = function () {
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function () {
+            userImage.setAttribute('src', this.result);
+            document.getElementById('imageUpdate').classList.remove('d-none');
+            imageFile.classList.add('d-none');
+        }
+    }
+
+    var swapButton = document.getElementById('swap');
+    swapButton.onclick = function () {
+        swapButton.classList.add("d-none");
+        document.getElementById('info').classList.add("d-none");
+        document.getElementById('updateForm').classList.remove("d-none");
+    }
+
+    if (document.getElementById('true_false').getAttribute('value') == 'true') {
+        swapButton.classList.add("d-none");
+        document.getElementById('info').classList.add("d-none");
+        document.getElementById('updateForm').classList.remove("d-none");
+    }
+</script>

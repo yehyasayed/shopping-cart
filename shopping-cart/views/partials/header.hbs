@@ -1,0 +1,43 @@
+<section class="navBar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Brand</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user-cart"> 
+                        <i class="fas fa-shopping-cart"></i>
+                        Shopping cart
+                        <span class="badge badge-primary">{{totalQuantity}}</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i> User Mangment
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {{#if checkAuth }}
+                                <a class="dropdown-item" href="/users/profile"> <i class="far fa-id-card"></i> Profile</a>
+                                <a class="dropdown-item" href="/users/logout"> <i class="fas fa-sign-out-alt"></i> Logout</a>
+                                {{#if admin}}
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/users/add-admin"> <i class="fas fa-user-plus"></i> Add Admin</a>
+                                    <a class="dropdown-item" href="/users/users"> <i class="fas fa-users"></i> Users</a>
+                                    <a class="dropdown-item" href="/users/products"> <i class="fab fa-product-hunt"></i> Products</a>
+                                {{/if}}
+                            {{else}}
+                                <a class="dropdown-item" href="/users/signin"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                                <a class="dropdown-item" href="/users/signup"><i class="fas fa-user-plus"></i> Sign Up</a>
+                            {{/if}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>

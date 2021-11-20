@@ -1,0 +1,55 @@
+<section class="checkout">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-12 m-auto text-center">
+                <ul class="errors">
+                    {{#each massages as |massage|}}
+                    <li>{{massage}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="col-md-6 col-10 offset-md-3 offset-1 mt-5">
+                <form method="POST" action="/checkout/finsh-checkout">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" class="form-control" id="" placeholder="Please enter your name" name="name">
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="exampleInputEmail1">Address</label>
+                        <input type="text" class="form-control" id="" placeholder="please enter your address"
+                            name="address">
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="exampleInputEmail1">Credit Card Number</label>
+                        <input type="number" class="form-control" id="" placeholder="Credit card number"
+                            name="creditNumber">
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="exampleInputEmail1">CVC</label>
+                        <input type="number" class="form-control" id="" placeholder="Please enter your name" name="cvc">
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mt-4">
+                                <label for="exampleInputEmail1">Expiration month</label>
+                                <input type="number" class="form-control" id="" placeholder="Expiration month"
+                                    name="expirationMonth">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mt-4">
+                                <label for="exampleInputEmail1">Expiration year</label>
+                                <input type="number" class="form-control" id="" placeholder="Expiration year"
+                                    name="expirationYear">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{token}}">
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary p-2">Payment ${{checkoutPrice}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

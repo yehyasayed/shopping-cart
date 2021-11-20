@@ -1,0 +1,49 @@
+<section class="processes mt-5 mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-12 offset-0 text-center">
+                <ul class="errors">
+                    {{#each massages as |massage|}}
+                    <li>{{massage}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="col-lg-6 col-12 offset-lg-3 offset-0">
+                <form method="post" action="/users/update-product/{{product._id}}">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Product Name</label>
+                        <input type="text" class="form-control" name="name" value="{{product.productName}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Product Price</label>
+                        <input type="number" class="form-control" name="price" value="{{product.productPrice}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Product Storage Capacity</label>
+                        <input type="text" class="form-control" name="psc"
+                            value="{{product.productInformation.storageCapacity}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Product Number Of HIM</label>
+                        <input type="text" class="form-control" name="pnoh"
+                            value="{{product.productInformation.NumberOfHIM}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Product Camera Resolution</label>
+                        <input type="text" class="form-control" name="pcr"
+                            value="{{product.productInformation.cameraResolution}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Product Display Size</label>
+                        <input type="text" class="form-control" name="pds"
+                            value="{{product.productInformation.displaySize}}">
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{token}}">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,50 @@
+<section class="user-cart mt-5 text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-sm">
+                    <thead>
+                        <tr class="table-info">
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each cart.selectedProducts as |value i|}}
+                            <tr>
+                                <th scope="row">{{index @i}}</th>
+                                <td>{{value.productName}}</td>
+                                <td>
+                                    {{#if (checkQuantity @value.productQuantity)}}
+                                        <a href="/decrease-product/{{i}}" class="btn btn-primary"><i class="fas fa-minus-square"></i></a>
+                                    {{else}}
+                                        <a href="/decrease-product/{{i}}" class="btn btn-danger"><i class="fas fa-minus-square"></i></a>
+                                    {{/if}}
+                                    {{value.productQuantity}}
+                                    <a href="/increase-product/{{i}}" class="btn btn btn-primary"><i class="fas fa-plus-square"></i></a>
+                                </td>
+                                <td>{{value.productPrice}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                    <footer>
+                        <tr class="table-danger">
+                            <td colspan="3">Total Price</td>
+                            <td>{{cart.totalPrice}}</td>
+                        </tr>
+                    </footer>
+                </table>
+            </div>
+            <div class="col-12 text-center">
+                {{#if totalQuantity}}
+                    <button class="btn btn-success" style="padding: 15px;"> <a href="/checkout" style="color: white;text-decoration: none;"> Checkout </a> </button>
+                {{else}}
+                    <button class="btn btn-success disabled" style="padding: 15px;"> Checkout </button>
+                {{/if}}
+                 
+            </div>
+        </div>
+    </div>
+</section>

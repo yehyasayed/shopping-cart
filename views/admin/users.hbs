@@ -1,0 +1,30 @@
+<section class="products mt-5 mb-5 text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Processes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each users as |user i|}}
+                            <tr>
+                                <th scope="row">{{index @i}}</th>
+                                <td>{{user.email}}</td>
+                                <td>{{user.role}}</td>
+                                <td>
+                                    <a href="/users/delete-user/{{user._id}}" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
